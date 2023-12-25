@@ -3,6 +3,7 @@ import 'package:chek_retail_app/DataAccess/mock_product_repository.dart';
 import 'package:chek_retail_app/Ui/recipe_screen.dart';
 import 'package:chek_retail_app/Domain/interfaces/product_service.dart';
 import 'package:chek_retail_app/Domain/product_service_impl.dart';
+import 'package:chek_retail_app/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
     ProductService service = ProductServiceImpl(repo);
 
     return MaterialApp(
+      theme: AppTheme.lightTheme,
       home: RecipeScreen(
         service: service,
       ),
