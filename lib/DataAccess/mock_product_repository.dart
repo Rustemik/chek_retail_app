@@ -88,6 +88,6 @@ class MockProductRepository implements ProductRepository {
 
   @override
   List<ProductEntity> getProducts() {
-    return _dataForStudents;
+    return _dataForStudents.toList();
   }
 }

@@ -7,7 +7,11 @@ class AppTheme {
     return base.copyWith(
       textTheme: TextTheme(
         bodyMedium: TextStyle(fontFamily: "Sora", color: Color(0xff252849)),
-        bodySmall: TextStyle(fontFamily: "Sora", color: Color(0xB5B5B5)),
+        bodySmall: TextStyle(
+            fontFamily: "Sora",
+            color: Color(0xff252849),
+            fontSize: 12,
+            fontWeight: FontWeight.w400),
       ),
       appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(
