@@ -31,6 +31,10 @@ class AppTheme {
         selectedItemColor: Color(0xFF67CD00),
         unselectedItemColor: Color(0xFF60607B),
       ),
+      dividerTheme: DividerThemeData(
+        thickness: 1,
+        color: Colors.grey.withOpacity(0.4),
+      ),
     );
   }
 }

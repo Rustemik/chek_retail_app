@@ -1,7 +1,10 @@
 import 'dart:developer';
 
+import 'package:chek_retail_app/Domain/Models/product-entity.dart';
 import 'package:chek_retail_app/Domain/Models/sort_type.dart';
 import 'package:chek_retail_app/Domain/interfaces/product_service.dart';
+import 'package:chek_retail_app/Ui/Components/categoried_product_list.dart';
+import 'package:chek_retail_app/Ui/Components/plain_product_list.dart';
 import 'package:chek_retail_app/Ui/components/bottom_bar.dart';
 import 'package:chek_retail_app/Ui/components/product_card.dart';
 import 'package:chek_retail_app/Ui/components/product_title.dart';
@@ -25,12 +28,14 @@ class _RecipeScreenState extends State<RecipeScreen> {
   Widget build(BuildContext context) {
     final products = widget._service.getProducts(_lastSortType);
 
-    final theme = Theme.of(context);
-
     //считаем Итого
     final totalPrice = products
         .map((e) => e.price)
         .reduce((value, element) => value + element);
+
+    int totalSale = ((totalPrice / 100) * 5).round();
+
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -75,19 +80,15 @@ class _RecipeScreenState extends State<RecipeScreen> {
               height: 16,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: products.length,
-                itemBuilder: (context, index) =>
-                    ProductCard(product: products[index]),
-              ),
+              child: _lastSortType == SortTypes.byTypeAcc ||
+                      _lastSortType == SortTypes.byTypeDec
+                  ? CategoriedProductList(products: products)
+                  : PlainProductList(products: products),
             ),
             const SizedBox(
               height: 16,
             ),
-            Divider(
-              height: 1,
-              color: Colors.grey.withOpacity(0.4),
-            ),
+            const Divider(),
             const SizedBox(
               height: 24,
             ),

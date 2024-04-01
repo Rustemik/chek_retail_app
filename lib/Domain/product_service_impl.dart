@@ -18,15 +18,19 @@ class ProductServiceImpl implements ProductService {
         product.sort((a, b) => a.title.compareTo(b.title));
         return product;
       case SortTypes.byNameDec:
-      // TODO: Handle this case.
+        product.sort((a, b) => b.title.compareTo(a.title));
       case SortTypes.byPriceAcc:
-      // TODO: Handle this case.
+        product.sort((a, b) => a.price.compareTo(b.price));
+        return product;
       case SortTypes.byPriceDec:
-      // TODO: Handle this case.
+        product.sort((a, b) => b.price.compareTo(a.price));
+        return product;
       case SortTypes.byTypeAcc:
-      // TODO: Handle this case.
+        product.sort((a, b) => a.category.name.compareTo(a.category.name));
+        return product;
       case SortTypes.byTypeDec:
-      // TODO: Handle this case.
+        product.sort((a, b) => b.category.name.compareTo(a.category.name));
+        return product;
     }
     return product;
   }

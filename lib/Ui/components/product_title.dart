@@ -1,5 +1,5 @@
 import 'package:chek_retail_app/Domain/Models/sort_type.dart';
-import 'package:chek_retail_app/Ui/components/sort_bottom_sheet.dart';
+import 'package:chek_retail_app/Ui/Components/sort_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -32,7 +32,10 @@ class ProductsTitle extends StatelessWidget {
             onTap: () {
               showModalBottomSheet(
                 context: context,
-                builder: (context) => SortBottomSheet(applySort: _applySort),
+                builder: (context) => SortBottomSheet(
+                  applySort: _applySort,
+                  lastSortType: _lastSortType,
+                ),
               );
             },
             child: Container(

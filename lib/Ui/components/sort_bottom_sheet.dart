@@ -7,159 +7,230 @@ class SortBottomSheet extends StatefulWidget {
   const SortBottomSheet({
     super.key,
     required Function(SortTypes p1) applySort,
-  }) : _applySort = applySort;
+    required SortTypes lastSortType,
+  })  : _applySort = applySort,
+        _lastSortType = lastSortType;
 
   final Function(SortTypes p1) _applySort;
+  final SortTypes _lastSortType;
 
   @override
-  State<SortBottomSheet> createState() => _SortBottomSheetState();
+  State<SortBottomSheet> createState() => _SortBottomSheetState(_lastSortType);
 }
 
 class _SortBottomSheetState extends State<SortBottomSheet> {
-  SortTypes _sortValue = SortTypes.noSort;
+  SortTypes _sortValue;
+
+  _SortBottomSheetState(SortTypes lastSortType) : _sortValue = lastSortType;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 600,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 24,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Сортировка"),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(
-                    Icons.close,
-                    size: 24,
-                    color: Colors.black,
+    final theme = Theme.of(context);
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.90,
+        minHeight: MediaQuery.of(context).size.height * 0.85,
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 24,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Сортировка",
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      Icons.close,
+                      size: 24,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              // RadioListTile(
+              //     title: Text("Без сортировки"),
+              //     value: SortTypes.noSort,
+              //     groupValue: _sortValue,
+              //     onChanged: (value) {
+              //       setState(() {
+              //         _sortValue = value!;
+              //       });
+              //     }),
+              // RadioListTile(
+              //   title: Text("По имени от А до Я"),
+              //   value: SortTypes.byNameAcc,
+              //   groupValue: _sortValue,
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _sortValue = value!;
+              //     });
+              //   },
+              // ),
+              SizedBox(height: 32),
+              SortRadio(
+                  title: Text(
+                    "Без сортировки",
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                  ),
+                  value: SortTypes.noSort,
+                  groupValue: _sortValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _sortValue = value!;
+                    });
+                  }),
+              SizedBox(height: 20),
+              Divider(),
+              Text(
+                "По имени",
+                style: theme.textTheme.bodySmall,
+              ),
+              SizedBox(height: 18),
+              SortRadio(
+                title: Text(
+                  "По имени от А до Я",
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
-              ],
-            ),
-            // RadioListTile(
-            //     title: Text("Без сортировки"),
-            //     value: SortTypes.noSort,
-            //     groupValue: _sortValue,
-            //     onChanged: (value) {
-            //       setState(() {
-            //         _sortValue = value!;
-            //       });
-            //     }),
-            // RadioListTile(
-            //   title: Text("По имени от А до Я"),
-            //   value: SortTypes.byNameAcc,
-            //   groupValue: _sortValue,
-            //   onChanged: (value) {
-            //     setState(() {
-            //       _sortValue = value!;
-            //     });
-            //   },
-            // ),
-            SizedBox(height: 32),
-            SortRadio(
-                title: Text("Без сортировки"),
-                value: SortTypes.noSort,
+                value: SortTypes.byNameAcc,
                 groupValue: _sortValue,
                 onChanged: (value) {
                   setState(() {
-                    _sortValue = value!;
+                    _sortValue = value;
                   });
-                }),
-            SizedBox(height: 26),
-            Divider(),
-            Text("По имени"),
-            SortRadio(
-              title: Text("По имени от А до Я"),
-              value: SortTypes.byNameAcc,
-              groupValue: _sortValue,
-              onChanged: (value) {
-                setState(() {
-                  _sortValue = value;
-                });
-              },
-            ),
-            SortRadio(
-              title: Text("По имени от Я до А"),
-              value: SortTypes.byNameDec,
-              groupValue: _sortValue,
-              onChanged: (value) {
-                setState(() {
-                  _sortValue = value;
-                });
-              },
-            ),
-            Divider(),
-            Text("По цене"),
-            SortRadio(
-              title: Text("По возрастанию"),
-              value: SortTypes.byPriceAcc,
-              groupValue: _sortValue,
-              onChanged: (value) {
-                setState(() {
-                  _sortValue = value;
-                });
-              },
-            ),
-            SortRadio(
-              title: Text("По убыванию"),
-              value: SortTypes.byPriceDec,
-              groupValue: _sortValue,
-              onChanged: (value) {
-                setState(() {
-                  _sortValue = value;
-                });
-              },
-            ),
-            Divider(),
-            Text("По типу"),
-            SortRadio(
-              title: Text("По типу от А до Я"),
-              value: SortTypes.byTypeAcc,
-              groupValue: _sortValue,
-              onChanged: (value) {
-                setState(() {
-                  _sortValue = value;
-                });
-              },
-            ),
-            SortRadio(
-              title: Text("По типу от Я до А"),
-              value: SortTypes.byTypeDec,
-              groupValue: _sortValue,
-              onChanged: (value) {
-                setState(() {
-                  _sortValue = value;
-                });
-              },
-            ),
-            SizedBox(height: 8),
-
-            Expanded(
-              child: Container(),
-            ),
-            SizedBox(
-              height: 48,
-              width: double.infinity,
-              child: ElevatedButton(
-                child: Text("ГОТОВО"),
-                onPressed: () {
-                  widget._applySort(SortTypes.byNameAcc);
-                  Navigator.pop(context);
                 },
               ),
-            ),
-          ],
+              SizedBox(height: 36),
+              SortRadio(
+                title: Text(
+                  "По имени от Я до А",
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+                value: SortTypes.byNameDec,
+                groupValue: _sortValue,
+                onChanged: (value) {
+                  setState(() {
+                    _sortValue = value;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+              Divider(),
+              Text(
+                "По цене",
+                style: theme.textTheme.bodySmall,
+              ),
+              SizedBox(height: 18),
+              SortRadio(
+                title: Text(
+                  "По возрастанию",
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+                value: SortTypes.byPriceAcc,
+                groupValue: _sortValue,
+                onChanged: (value) {
+                  setState(() {
+                    _sortValue = value;
+                  });
+                },
+              ),
+              SizedBox(height: 36),
+              SortRadio(
+                title: Text(
+                  "По убыванию",
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+                value: SortTypes.byPriceDec,
+                groupValue: _sortValue,
+                onChanged: (value) {
+                  setState(() {
+                    _sortValue = value;
+                  });
+                },
+              ),
+              SizedBox(height: 26),
+              Divider(),
+              Text(
+                "По типу",
+                style: theme.textTheme.bodySmall,
+              ),
+              SizedBox(height: 18),
+              SortRadio(
+                title: Text(
+                  "По типу от А до Я",
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+                value: SortTypes.byTypeAcc,
+                groupValue: _sortValue,
+                onChanged: (value) {
+                  setState(() {
+                    _sortValue = value;
+                  });
+                },
+              ),
+              SizedBox(height: 36),
+              SortRadio(
+                title: Text(
+                  "По типу от Я до А",
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+                value: SortTypes.byTypeDec,
+                groupValue: _sortValue,
+                onChanged: (value) {
+                  setState(() {
+                    _sortValue = value;
+                  });
+                },
+              ),
+              SizedBox(height: 8),
+
+              Expanded(
+                child: Container(),
+              ),
+              SizedBox(
+                height: 48,
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff67CD00),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    "Готово",
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                  onPressed: () {
+                    widget._applySort(_sortValue);
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
