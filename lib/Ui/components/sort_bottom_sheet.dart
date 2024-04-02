@@ -1,7 +1,5 @@
 import 'package:chek_retail_app/Domain/Models/sort_type.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SortBottomSheet extends StatefulWidget {
   const SortBottomSheet({

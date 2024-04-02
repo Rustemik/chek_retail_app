@@ -26,7 +26,7 @@ class ProductServiceImpl implements ProductService {
         product.sort((a, b) => b.price.compareTo(a.price));
         return product;
       case SortTypes.byTypeAcc:
-        product.sort((a, b) => a.category.name.compareTo(a.category.name));
+        product.sort((a, b) => a.category.name.compareTo(b.category.name));
         return product;
       case SortTypes.byTypeDec:
         product.sort((a, b) => b.category.name.compareTo(a.category.name));
