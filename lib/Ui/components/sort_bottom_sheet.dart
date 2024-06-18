@@ -80,7 +80,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
               //   },
               // ),
               SizedBox(height: 32),
-              SortRadio(
+              CustomRadio(
                   title: Text(
                     "Без сортировки",
                     style: theme.textTheme.bodyMedium
@@ -100,7 +100,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 style: theme.textTheme.bodySmall,
               ),
               SizedBox(height: 18),
-              SortRadio(
+              CustomRadio(
                 title: Text(
                   "По имени от А до Я",
                   style: theme.textTheme.bodyMedium
@@ -115,7 +115,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 },
               ),
               SizedBox(height: 36),
-              SortRadio(
+              CustomRadio(
                 title: Text(
                   "По имени от Я до А",
                   style: theme.textTheme.bodyMedium
@@ -136,7 +136,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 style: theme.textTheme.bodySmall,
               ),
               SizedBox(height: 18),
-              SortRadio(
+              CustomRadio(
                 title: Text(
                   "По возрастанию",
                   style: theme.textTheme.bodyMedium
@@ -151,7 +151,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 },
               ),
               SizedBox(height: 36),
-              SortRadio(
+              CustomRadio(
                 title: Text(
                   "По убыванию",
                   style: theme.textTheme.bodyMedium
@@ -172,7 +172,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 style: theme.textTheme.bodySmall,
               ),
               SizedBox(height: 18),
-              SortRadio(
+              CustomRadio(
                 title: Text(
                   "По типу от А до Я",
                   style: theme.textTheme.bodyMedium
@@ -187,7 +187,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 },
               ),
               SizedBox(height: 36),
-              SortRadio(
+              CustomRadio(
                 title: Text(
                   "По типу от Я до А",
                   style: theme.textTheme.bodyMedium
@@ -235,13 +235,13 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
   }
 }
 
-class SortRadio extends StatelessWidget {
+class CustomRadio extends StatelessWidget {
   Widget title;
   SortTypes value;
   SortTypes groupValue;
   Function(SortTypes value) onChanged;
 
-  SortRadio({
+  CustomRadio({
     super.key,
     required this.title,
     required this.value,
